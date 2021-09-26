@@ -61,26 +61,27 @@ can use it just like the `elm-core` `Set` API:
 ## The exception: `map`
 
 There is one function in this package's `Set` interface that doesn't quite match
-the `elm-core` `Set` API. 
+the `elm-core` `Set` API.
 
 The `map` function takes an extra argument:
 
     -- elm/core
-    Set.map : 
-        (comparable -> comparable2) 
-        -> Set comparable 
+    Set.map :
+        (comparable -> comparable2)
+        -> Set comparable
         -> Set comparable2
 
     -- edkelly303/elm-any-type-collections
-    set.map : 
+    set.map :
         (b -> comparable2)
         (a -> b)
         -> Set a comparable
         -> Set b comparable2
 
-This is necessary because `map` is able to change the type of the members of the 
-`Set` from `a` to `b`. We need to provide a way to turn that `b` into another 
+This is necessary because `map` is able to change the type of the members of the
+`Set` from `a` to `b`. We need to provide a way to turn that `b` into another
 `comparable` type so that the resulting `Set` will be able to store it.
+
 -}
 type alias Interface a b output comparable comparable2 =
     { empty : Set a comparable
@@ -112,8 +113,8 @@ type. You need to supply two functions:
 2.  `fromComparable`, which converts that same `comparable` type back into your
     key type.
 
-It's a good idea to define the `Interface` as a top-level value. Once you've 
-defined the `Interface`, you can use it anywhere in your code without needing to 
+It's a good idea to define the `Interface` as a top-level value. Once you've
+defined the `Interface`, you can use it anywhere in your code without needing to
 pass it explicitly to your functions.
 
 For example, here we define the `Interface` as a top-level value called `idSet`:
