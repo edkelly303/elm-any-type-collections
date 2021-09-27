@@ -49,6 +49,7 @@ Instead, we create `Interfaces` for each type. An `Interface` is simply a record
 *  It offers similar performance characteristics to the `elm/core` `Dict` and `Set` implementations. Each function has the same Big-O complexity as its `elm-core` equivalent. By contrast:
   *  [pzp1997/assoc-list](https://package.elm-lang.org/packages/pzp1997/assoc-list/latest) has similar performance characteristics to a `List`, which is no problem for small dictionaries but may get slower with larger ones.
   *  [jjant/elm-dict](https://package.elm-lang.org/packages/jjant/elm-dict/latest) takes an interesting approach, which may make it faster in some circumstances and slower in others - check its README for more details.
+  *  See the ["Performance"](#performance) section for benchmarks.
 
 *  Depending on your preferences, it may feel more ergonomic than packages whose API requires conversion functions to be passed in as an argument each time you call a `Dict`/`Set` function, such as:
   *  [truqu/elm-dictset](https://package.elm-lang.org/packages/truqu/elm-dictset/latest)
@@ -60,7 +61,7 @@ Instead, we create `Interfaces` for each type. An `Interface` is simply a record
 
 *  It may just feel too _weird_ to call `dict.get` instead of `Dict.get`. This type of API, based on a record-of-functions, is not common in Elm packages, and may make the code harder to understand for people who are not familiar with it.
 
-*  It may increase asset size, since the final bundle of compiled code will include all the functions from `elm-core` `Dict` and/or `Set`, even if your code doesn't use them all.
+*  It may increase asset size, since the final bundle of compiled code will include all the functions from `elm-core` `Dict` and/or `Set`, even if your code doesn't use them all. See the ["Asset size"](#asset-size) section for more details.
 
 ## How to use this package
 
@@ -121,3 +122,30 @@ anotherDict =
     Id.dict.insert (Id.fromInt 3) "baz" myFirstDict
 ```
 
+## Performance
+
+The `benchmarks` folder contains some benchmarks comparing this package to other similar Elm packages. 
+
+See the [README](https://github.com/edkelly303/elm-any-type-collections/blob/main/benchmarks/README.md) in the `benchmarks` folder for instructions on how to run the benchmarks.
+
+## Asset size
+
+The `asset-size` folder contains a script that allows you to compare the size of the JavaScript output from this package against the output of an equivalent `elm-core` program. 
+
+On my machine, the results are as follows:
+
+```bash
+>> Compiled size
+Any.js:         121261 bytes
+Core.js:        91544 bytes
+
+>> Minified size
+Any.min.js:     15144 bytes
+Core.min.js:    7057 bytes
+
+>> Gzipped size
+Any.min.js.gz:  5241 bytes
+Core.min.js.gz: 2927 bytes
+```
+
+See the [README](https://github.com/edkelly303/elm-any-type-collections/blob/main/asset-size/README.md) in the `asset-size` folder for instructions on how to run the script.
