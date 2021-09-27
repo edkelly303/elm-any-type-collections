@@ -3,6 +3,6 @@
 To run the benchmarks: 
 
 ```bash
-$ elm make ./src/DictBenchmarks.elm --optimize
+$ elm make ./src/Benchmarks.elm --optimize
 $ npx http-server --gzip -o
 ```
