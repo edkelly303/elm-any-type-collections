@@ -18,7 +18,7 @@ x =
 
 
 y =
-    set.empty |> set.toList |> List.map (\_ ->  Html.div [] [])
+    set.empty |> set.toList |> List.map (\_ -> Html.div [] [])
 
 
 main =

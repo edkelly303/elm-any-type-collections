@@ -106,12 +106,11 @@ type. You need to supply two functions:
 2.  `fromComparable`, which converts that same `comparable` type back into your
     key type.
 
-
-It's a good idea to define the `Interface` as a top-level value. Once you've 
-defined the `Interface`, you can use it anywhere in your code without needing to 
+It's a good idea to define the `Interface` as a top-level value. Once you've
+defined the `Interface`, you can use it anywhere in your code without needing to
 pass it explicitly to your functions.
 
-For example, here we define the `Interface` as a top-level value called 
+For example, here we define the `Interface` as a top-level value called
 `colourDictInterface`:
 
     type Colour
