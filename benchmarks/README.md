@@ -4,5 +4,5 @@ To run the benchmarks:
 
 ```bash
 $ elm make ./src/Benchmarks.elm --optimize
-$ npx http-server --gzip -o
+$ npx http-server --gzip -o -c-1
 ```

@@ -22,7 +22,8 @@ dict =
 
 
 list =
-    List.range 1 100 |> List.map (\x -> ( x, x ))
+    List.range 1 100 
+    |> List.map (\x -> ( x, x ))
 
 
 coreDict =
@@ -81,88 +82,54 @@ jjan =
 
 
 suite =
-    describe "Dict"
+    Benchmark.describe "Dict"
         [ rank "fromList"
             [ core (\() -> Dict.fromList list)
             , eatc (\() -> dict.fromList list)
             , assc (\() -> AssocList.fromList list)
             , jjan (\() -> AllDict.fromList list)
             ]
-        , describe "get"
-            [ rank "from the start of the Dict"
-                [ core (\() -> Dict.get 1 coreDict)
-                , eatc (\() -> dict.get 1 eatcDict)
-                , assc (\() -> AssocList.get 1 asscDict)
-                , jjan (\() -> AllDict.get 1 jjanDict)
-                ]
-            , rank "from the middle of the Dict"
-                [ core (\() -> Dict.get 50 coreDict)
-                , eatc (\() -> dict.get 50 eatcDict)
-                , assc (\() -> AssocList.get 50 asscDict)
-                , jjan (\() -> AllDict.get 50 jjanDict)
-                ]
-            , rank "from the end of the Dict"
-                [ core (\() -> Dict.get 100 coreDict)
-                , eatc (\() -> dict.get 100 eatcDict)
-                , assc (\() -> AssocList.get 100 asscDict)
-                , jjan (\() -> AllDict.get 100 jjanDict)
-                ]
-            ]
-        , describe "insert"
-            [ rank "at the start of the Dict"
-                [ core (\() -> Dict.insert 0 0 coreDict)
-                , eatc (\() -> dict.insert 0 0 eatcDict)
-                , assc (\() -> AssocList.insert 0 0 asscDict)
-                , jjan (\() -> AllDict.insert 0 0 jjanDict)
-                ]
-            , rank "into the middle of the Dict"
-                [ core (\() -> Dict.insert 50 50 coreDict)
-                , eatc (\() -> dict.insert 50 50 eatcDict)
-                , assc (\() -> AssocList.insert 50 50 asscDict)
-                , jjan (\() -> AllDict.insert 50 50 jjanDict)
-                ]
-            , rank "at the end of the Dict"
-                [ core (\() -> Dict.insert 101 101 coreDict)
-                , eatc (\() -> dict.insert 101 101 eatcDict)
-                , assc (\() -> AssocList.insert 101 101 asscDict)
-                , jjan (\() -> AllDict.insert 101 101 jjanDict)
-                ]
-            ]
-        , describe "update"
-            [ rank "at the start of the Dict"
-                [ core (\() -> Dict.update 1 updater coreDict)
-                , eatc (\() -> dict.update 1 updater eatcDict)
-                , assc (\() -> AssocList.update 1 updater asscDict)
-                ]
-            , rank "in the middle of the Dict"
-                [ core (\() -> Dict.update 50 updater coreDict)
-                , eatc (\() -> dict.update 50 updater eatcDict)
-                , assc (\() -> AssocList.update 50 updater asscDict)
-                ]
-            , rank "at the end of the Dict"
-                [ core (\() -> Dict.update 100 updater coreDict)
-                , eatc (\() -> dict.update 100 updater eatcDict)
-                , assc (\() -> AssocList.update 100 updater asscDict)
-                ]
-            ]
-        , describe "remove"
-            [ rank "from the start of the Dict"
-                [ core (\() -> Dict.remove 1 coreDict)
-                , eatc (\() -> dict.remove 1 eatcDict)
-                , assc (\() -> AssocList.remove 1 asscDict)
-                , jjan (\() -> AllDict.remove 1 jjanDict)
-                ]
-            , rank "in the middle of the Dict"
-                [ core (\() -> Dict.remove 50 coreDict)
-                , eatc (\() -> dict.remove 50 eatcDict)
-                , assc (\() -> AssocList.remove 50 asscDict)
-                , jjan (\() -> AllDict.remove 50 jjanDict)
-                ]
-            , rank "from the end of the Dict"
-                [ core (\() -> Dict.remove 100 coreDict)
-                , eatc (\() -> dict.remove 100 eatcDict)
-                , assc (\() -> AssocList.remove 100 asscDict)
-                , jjan (\() -> AllDict.remove 100 jjanDict)
-                ]
-            ]
+        , describe "get" get
+        , describe "insert" insert
+        , describe "update" update
+        , describe "remove" remove
         ]
+
+
+describe name fn =
+    Benchmark.describe name
+        [ rank "start" (fn 1)
+        , rank "middle" (fn 50)
+        , rank "end" (fn 100)
+        ]
+
+
+get key =
+    [ core (\() -> Dict.get key coreDict)
+    , eatc (\() -> dict.get key eatcDict)
+    , assc (\() -> AssocList.get key asscDict)
+    , jjan (\() -> AllDict.get key jjanDict)
+    ]
+
+
+insert key =
+    [ core (\() -> Dict.insert key key coreDict)
+    , eatc (\() -> dict.insert key key eatcDict)
+    , assc (\() -> AssocList.insert key key asscDict)
+    , jjan (\() -> AllDict.insert key key jjanDict)
+    ]
+
+
+update key =
+    [ core (\() -> Dict.update key updater coreDict)
+    , eatc (\() -> dict.update key updater eatcDict)
+    , assc (\() -> AssocList.update key updater asscDict)
+    ]
+
+
+remove key =
+    [ core (\() -> Dict.remove key coreDict)
+    , eatc (\() -> dict.remove key eatcDict)
+    , assc (\() -> AssocList.remove key asscDict)
+    , jjan (\() -> AllDict.remove key jjanDict)
+    ]
