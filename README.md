@@ -124,11 +124,11 @@ anotherDict =
 
 ## Performance
 
-The `benchmarks` folder contains some basic benchmarks comparing some of the commonly used functions in this package to their equivalents in other similar Elm packages.
+The `benchmarks` folder contains some basic benchmarks comparing some of the commonly used `Dict` functions in this package to their equivalents in other similar Elm packages.
 
-Without going into too much detail, this package offers broadly similar performance characteristics to `elm-core` dict. It is slightly slower in all cases due to the need to convert between the user's `key`/`member` type and the `comparable` type used to represent it internally.
+Without going into too much detail, this package offers broadly similar performance characteristics to `elm-core` `Dict`. It is slightly slower in all cases due to the need to convert between the user's `key` type and the `comparable` type used to represent it internally.
 
-Note: `jjant/elm-dict` seems crazy fast for a lot of these operations! So if you don't need to worry about the fact that its data structure contains functions, it might be worth checking out.
+**Side note:** [jjant/elm-dict](https://package.elm-lang.org/packages/jjant/elm-dict/latest) seems crazy fast for a lot of these operations! So if you don't need to worry about the fact that its data structure contains functions, it might be worth checking out.
 
 See the [README](https://github.com/edkelly303/elm-any-type-collections/blob/main/benchmarks/README.md) in the `benchmarks` folder for instructions on how to run the benchmarks.
 
